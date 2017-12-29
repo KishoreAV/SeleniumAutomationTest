@@ -1,6 +1,8 @@
 /**
  * Created by avkis on 2017-12-25.
  */
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -21,7 +23,7 @@ import static org.testng.Assert.fail;
         private boolean acceptNextAlert = true;
         private StringBuffer verificationErrors = new StringBuffer();
         
-        @BeforeClass(alwaysRun = true)
+//        @BeforeClass(alwaysRun = true)
         public void setUp() throws Exception {
             System.setProperty("webdriver.gecko.driver", "G:\\Git\\SeleniumAutomationTest\\src\\main\\resources\\geckodriver64.exe");
             driver = new FirefoxDriver( );
@@ -29,7 +31,17 @@ import static org.testng.Assert.fail;
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         }
         
+        
+        private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(UntitledTestCase.class);
         @Test
+        public void performSomeTask(){
+            logger.debug("This is a debug message");
+            logger.info("This is an info message");
+            logger.warn("This is a warn message");
+            logger.error("This is an error message");
+            logger.fatal("This is a fatal message");
+        }
+        
         public void testUntitledTestCase() throws Exception {
             driver.get("https://forum.katalon.com/discussion/4056/katalon-automation-recorder-powerful-selenium-ide-to-record-debug-play-tests-in-any-browsers");
             driver.findElement(By.linkText("All Discussions")).click();
@@ -56,7 +68,7 @@ import static org.testng.Assert.fail;
             driver.findElement(By.id("207472_7780pi_207472_7780_47056")).click();
         }
         
-        @AfterClass(alwaysRun = true)
+//        @AfterClass(alwaysRun = true)
         public void tearDown() throws Exception {
             driver.quit();
             String verificationErrorString = verificationErrors.toString();
