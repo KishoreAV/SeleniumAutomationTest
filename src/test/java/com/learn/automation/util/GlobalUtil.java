@@ -15,6 +15,7 @@ public class GlobalUtil {
         config.setResourcePath(this.getClass(),"./global/global.properties");
         OperaOptions operaOptions = new OperaOptions();
         operaOptions.setBinary(config.getValue("OPERA_BINARY"));
+        operaOptions.addArguments("no-sandbox");
         webDriver = new OperaDriver(operaOptions);
         webDriver.manage().timeouts().pageLoadTimeout(Integer.parseInt(config.getValue("PAGE_LOAD_TIMEOUT")), TimeUnit.SECONDS);
         webDriver.manage().timeouts().setScriptTimeout(Integer.parseInt(config.getValue("SCRIPT_TIMEOUT")), TimeUnit.SECONDS);
