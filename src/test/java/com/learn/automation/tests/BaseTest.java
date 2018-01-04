@@ -20,7 +20,13 @@ public class BaseTest {
     
     @AfterMethod
     public void tearDown() {
-            driver.quit();
-            logger.info("Driver is quit.");
+        try {
+            logger.debug("Trying to sleep");
+            Thread.sleep(10000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        driver.quit();
+        logger.info("Driver is quit.");
     }
 }

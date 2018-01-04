@@ -6,6 +6,7 @@
       <class name="com.learn.automation.tests.Test1">
         <methods>
             <exclude name="testExclude"/>
+            <exclude name="openPageTest"/>
         </methods>
       </class>
     </classes>
