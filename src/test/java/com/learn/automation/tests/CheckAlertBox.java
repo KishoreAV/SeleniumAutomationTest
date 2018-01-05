@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class CheckAlertBox extends BaseTest{
     
-    @Test
+    @Test(testName = "Login Test")
     public void Login(){
         HomePage homePage = PageFactory.initElements(driver,HomePage.class);
         
@@ -21,6 +21,8 @@ public class CheckAlertBox extends BaseTest{
         }else{
             logger.debug("not found the box");
         }
+        homePage.setUsernameAndPassword();
+        homePage.clickSubmit();
 
     }
 }

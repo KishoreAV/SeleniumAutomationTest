@@ -4,6 +4,7 @@ import com.testhelp.Config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 
 public class HomePage extends AbstractBasePage {
     
@@ -19,6 +20,15 @@ public class HomePage extends AbstractBasePage {
     
     @FindBy(id = "login")
     private WebElement elepopLoginForm;
+    
+    @FindBy(name = "username")
+    WebElement txtUsername;
+    
+    @FindBy(name = "password")
+    WebElement txtPassword;
+    
+    @FindBy(css = "input.button")
+    WebElement btnSubmitLogin;
     
     public void openBaseUrl(){
         logger.debug("Opening base url");
@@ -38,18 +48,28 @@ public class HomePage extends AbstractBasePage {
     }
     
     public void clickSigninLink(){
-        logger.debug("clicking Signin");
+        logger.trace("clicking Signin");
         clickWebElement(lblmenuAlert);
     }
     
     public boolean checkPopupLoginForm(){
-        logger.debug("checking for login form popup");
+        logger.trace("checking for login form popup");
         try {
             return elepopLoginForm.isDisplayed();
         }catch (Exception e){
             logger.error("failed to work", () -> e.getLocalizedMessage());
             return false;
         }
+    }
+    
+    public void setUsernameAndPassword(){
+    logger.trace("setting text");
+    setText(txtUsername,"test");
+    setText(txtPassword,"test");
+    }
+    public void clickSubmit(){
+        logger.trace("clicking submit");
+        clickWebElement(btnSubmitLogin);
     }
     
 }

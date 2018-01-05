@@ -26,7 +26,7 @@ abstract class AbstractBasePage {
         wait = new WebDriverWait(webDriver,Integer.parseInt(config.getValue("WAIT_LONG")));
     }
     
-    public void clickWebElement(WebElement webElement) {
+    protected void clickWebElement(WebElement webElement) {
         try{
             Objects.requireNonNull(checkVisible(webElement)).click();
             logger.debug("Clicked on ", webElement.toString());
@@ -43,6 +43,16 @@ abstract class AbstractBasePage {
         }catch (Exception e){
             logger.error("Error in finding element. " + e.getLocalizedMessage());
             return null;
+        }
+    }
+    
+    protected void setText(WebElement webElement, String string){
+        try {
+            WebElement element = checkVisible(webElement);
+            element.sendKeys(string);
+            logger.debug("Following value is set for ", element.getText() , ": ", string);
+        }catch (Exception e){
+            logger.error("Error in setting text. " + e.getLocalizedMessage());
         }
     }
 }
