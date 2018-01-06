@@ -14,15 +14,15 @@ public class CheckAlertBox extends BaseTest{
         if (homePage.checkPopupRegistrationForm()){
             homePage.clickSigninLink();
         }else {
-            logger.debug("Condition failed");
+            logger.trace("registration form not displayed");
         }
+        homePage.waitForPageReady();
         if (homePage.checkPopupLoginForm()){
             logger.debug("found login box");
+            homePage.setUsernamePasswordAndSubmit();
         }else{
             logger.debug("not found the box");
         }
-        homePage.setUsernameAndPassword();
-        homePage.clickSubmit();
-
+        
     }
 }

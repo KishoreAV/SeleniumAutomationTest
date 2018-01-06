@@ -21,14 +21,15 @@ public class HomePage extends AbstractBasePage {
     @FindBy(id = "login")
     private WebElement elepopLoginForm;
     
-    @FindBy(name = "username")
-    WebElement txtUsername;
+    @FindBy(xpath = "(//input[@name='username'])[2]")
+    private WebElement txtLoginUsername;
     
-    @FindBy(name = "password")
-    WebElement txtPassword;
+    @FindBy(xpath = "(//input[@name='password'])[2]")
+    private WebElement txtLoginPassword;
     
-    @FindBy(css = "input.button")
-    WebElement btnSubmitLogin;
+    @FindBy(xpath = "(//input[@class='button'])[2]")
+    private WebElement btnSubmitLogin;
+    
     
     public void openBaseUrl(){
         logger.debug("Opening base url");
@@ -52,6 +53,7 @@ public class HomePage extends AbstractBasePage {
         clickWebElement(lblmenuAlert);
     }
     
+    
     public boolean checkPopupLoginForm(){
         logger.trace("checking for login form popup");
         try {
@@ -62,14 +64,14 @@ public class HomePage extends AbstractBasePage {
         }
     }
     
-    public void setUsernameAndPassword(){
-    logger.trace("setting text");
-    setText(txtUsername,"test");
-    setText(txtPassword,"test");
-    }
-    public void clickSubmit(){
+    public void setUsernamePasswordAndSubmit(){
+        logger.trace("setting text");
+        setText(txtLoginUsername,"test");
+        setText(txtLoginPassword,"test");
         logger.trace("clicking submit");
         clickWebElement(btnSubmitLogin);
     }
     
 }
+
+

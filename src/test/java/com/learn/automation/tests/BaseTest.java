@@ -21,8 +21,7 @@ public class BaseTest {
     @AfterMethod
     public void tearDown() {
         try {
-            logger.debug("Trying to sleep");
-            Thread.sleep(10000);
+            Thread.sleep(500);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
