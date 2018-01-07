@@ -3,17 +3,22 @@ package com.learn.automation.pageclass;
 import com.testhelp.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.xpath.operations.Bool;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.util.Objects;
 
-abstract class AbstractBasePage {
+public abstract class AbstractBasePage {
     protected WebDriver webDriver;
     protected static Logger logger = LogManager.getLogger();
     private WebDriverWait wait;
@@ -36,15 +41,61 @@ abstract class AbstractBasePage {
         logger.trace("page ready");
         usedJquery = (Boolean) ((JavascriptExecutor)webDriver).executeScript("return typeof jQuery != 'undefined'");
         if(usedJquery){
-            wait.until((webDriver)-> ( (Boolean) ((JavascriptExecutor)webDriver).executeScript("return jQuery.active==0")));
-            logger.trace("jQ Done.");
+            try {
+                wait.until((webDriver) -> ((Boolean) ((JavascriptExecutor) webDriver).executeScript("return jQuery.active==0")));
+                logger.trace("jQ Done.");
+            }catch (WebDriverException e){
+                if (e.getMessage().contains("'jQuery'")){
+                    logger.trace("jQuery Run Exception");
+                    waitForPageReady();
+                }
+            }
         }
     }
     
+    protected void switchToFrame(WebElement element){
+        webDriver.switchTo().frame(element);
+    }
+    
+    protected void switchToFrame(){
+        webDriver.switchTo().defaultContent();
+    }
+    
+    protected String getAlertText(){
+        return webDriver.switchTo().alert().getText();
+    }
+    public void acceptAlert(){
+        webDriver.switchTo().alert().accept();
+    }
+    
+    public void sendTextToAlert(String string){
+        webDriver.switchTo().alert().sendKeys(string);
+    }
+    
+    protected boolean isAlertPresent() {
+         WebDriverWait webDriverWait = new WebDriverWait(webDriver,Integer.parseInt(config.getValue("WAIT_SHORT")));
+         try {
+             webDriverWait.until((webDriver) -> {
+                 try {
+                     webDriver.switchTo().alert();
+                     return true;
+                 } catch (NoAlertPresentException e) {
+                     return false;
+                 }
+             });
+             return true;
+         }catch (TimeoutException e){
+             logger.trace(e.getLocalizedMessage());
+             return false;
+         }
+    }
+    
+    
+    
     protected void clickWebElement(WebElement webElement) {
         try{
-            Objects.requireNonNull(checkVisible(webElement)).click();
-            logger.debug("Clicked on " + webElement.toString());
+            logger.trace("Clicking on " + webElement.toString());
+            Objects.requireNonNull(checkClickable(webElement)).click();
         }catch (Exception e){
             logger.error("Error in clicking element", webElement.toString());
         }
@@ -53,7 +104,7 @@ abstract class AbstractBasePage {
     private WebElement checkVisible(WebElement webElement){
         try {
             WebElement element = wait.until(ExpectedConditions.visibilityOf(webElement));
-            logger.debug(element.toString() + " Element found in page. Location: " + element.getLocation().toString());
+            logger.trace(element.toString() + " Element found in page. Location: " + element.getLocation().toString());
             return element;
         }catch (Exception e){
             logger.error("Error in finding element. " + webElement.toString() + e.getLocalizedMessage());
@@ -63,19 +114,31 @@ abstract class AbstractBasePage {
     private WebElement checkClickable(WebElement webElement){
         try {
             WebElement element = wait.until(ExpectedConditions.elementToBeClickable(webElement));
-            logger.debug(element.getText() + " Element found in page. Location: " + element.getLocation().toString());
+            logger.trace(element.toString() + " Element found in page. Location: " + element.getLocation().toString());
             return element;
         }catch (Exception e){
             logger.error("Error in finding element. " + webElement.toString() + e.getLocalizedMessage());
             return null;
         }
     }
+    protected Boolean checkElementDisplayed(WebElement webElement){
+        try {
+            return webElement.isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
+    }
+    
+    public String getText(WebElement webElement){
+        return checkVisible(webElement).getText();
+    }
     
     protected void setText(WebElement webElement, String string){
         try {
             WebElement element = checkVisible(webElement);
+            element.clear();
             element.sendKeys(string);
-            logger.debug("Following value is set for " + webElement.toString() + ": " + string);
+            logger.trace("Following value is set for " + webElement.toString() + ": " + string);
         }catch (Exception e){
             logger.error("Error in setting text. " + webElement.toString() + e.getLocalizedMessage());
         }

@@ -22,7 +22,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.13.1</version>
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-api -->
         <dependency>
@@ -52,7 +52,7 @@
                     <version>2.20.1</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>./testng.xml</suiteXmlFile>
+                            <suiteXmlFile>testng.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>
@@ -60,9 +60,14 @@
         </pluginManagement>
     </build>
 
-    <description>This is a test project</description>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <description>Selenium with TestNg</description>
+    <name>SeleniumAutomation</name>
+    <scm>
+    	<url>https://github.com/KishoreAV/SeleniumAutomationTest</url>
+    </scm>
+    <url>https://github.com/KishoreAV/SeleniumAutomationTest</url>
 </project>

@@ -4,14 +4,19 @@ import com.testhelp.Config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-public class HomePage extends AbstractBasePage {
+public class HomePage extends CommonPage {
     
     public HomePage(WebDriver webDriver) {
         super(webDriver);
+        PageFactory.initElements(webDriver,this);
     }
     
+    /**
+     * Section to have all the elements to be used in the page.
+     */
     @FindBy(linkText = "Signin")
     private WebElement lblmenuAlert;
     
@@ -30,41 +35,21 @@ public class HomePage extends AbstractBasePage {
     @FindBy(xpath = "(//input[@class='button'])[2]")
     private WebElement btnSubmitLogin;
     
+    @FindBy(css = "#toggleNav > li:nth-child(7) > a:nth-child(1)")
+    private WebElement menuItemAlert;
     
     public void openBaseUrl(){
         logger.debug("Opening base url");
         webDriver.get(Config.getPropertyValue(Config.getResourcePath(this.getClass(),"./global/global.properties"),"BASE_URL"));
     }
     
-    public boolean checkPopupRegistrationForm(){
-        logger.debug("checking for registration form popup");
-        try {
-            return elepopRegisterForm.isDisplayed();
-        }catch (Exception e){
-            logger.error("failed to work", () -> e.getLocalizedMessage());
-            return false;
-
-        }
-
-    }
     
-    public void clickSigninLink(){
+    private void clickSigninLink(){
         logger.trace("clicking Signin");
         clickWebElement(lblmenuAlert);
     }
     
-    
-    public boolean checkPopupLoginForm(){
-        logger.trace("checking for login form popup");
-        try {
-            return elepopLoginForm.isDisplayed();
-        }catch (Exception e){
-            logger.error("failed to work", () -> e.getLocalizedMessage());
-            return false;
-        }
-    }
-    
-    public void setUsernamePasswordAndSubmit(){
+    private void setUsernamePasswordAndSubmit(){
         logger.trace("setting text");
         setText(txtLoginUsername,"test");
         setText(txtLoginPassword,"test");
@@ -72,6 +57,27 @@ public class HomePage extends AbstractBasePage {
         clickWebElement(btnSubmitLogin);
     }
     
+    public void navigateToAlertPage(){
+        clickWebElement(menuItemAlert);
+    }
+    
+    public void Login(){
+        openBaseUrl();
+        if (checkElementDisplayed(elepopRegisterForm)){
+            clickSigninLink();
+        }else {
+            logger.trace("Registration form not displayed.");
+        }
+        waitForPageReady();
+        if (checkElementDisplayed(elepopLoginForm)){
+            setUsernamePasswordAndSubmit();
+            waitForPageReady();
+            Assert.assertFalse(checkElementDisplayed(elepopLoginForm));
+        }else{
+            logger.trace("Login not displayed.");
+        }
+        
+    }
 }
 
 

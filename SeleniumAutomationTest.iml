@@ -57,8 +57,8 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.7.v20170914" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-common:9.4.7.v20170914" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-api:9.4.7.v20170914" level="project" />
-    <orderEntry type="library" name="Maven: org.testng:testng:6.13.1" level="project" />
-    <orderEntry type="library" name="Maven: com.beust:jcommander:1.72" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:6.13.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.beust:jcommander:1.72" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.surefire:surefire-api:2.20.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.surefire:surefire-logger-api:2.20.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.17" level="project" />
