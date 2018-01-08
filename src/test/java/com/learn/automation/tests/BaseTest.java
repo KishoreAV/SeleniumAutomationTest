@@ -1,19 +1,27 @@
 package com.learn.automation.tests;
 
 import com.learn.automation.util.GlobalUtil;
+import com.testhelp.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.util.concurrent.TimeUnit;
+
 public class BaseTest {
     protected WebDriver driver;
     protected static Logger logger = LogManager.getLogger();
+    
     @BeforeMethod
     public void setup(){
         GlobalUtil globalUtil = new GlobalUtil();
         this.driver = globalUtil.getWebDriver();
+        Config config = new Config();
+        config.setResourcePath(this.getClass(),"./global/global.properties");
+        driver.manage().timeouts().pageLoadTimeout(Integer.parseInt(config.getValue("PAGE_LOAD_TIMEOUT")), TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(Integer.parseInt(config.getValue("SCRIPT_TIMEOUT")), TimeUnit.SECONDS);
         logger.info("Webdriver is setup.");
         //driver.manage().window().setSize(new Dimension(1280, 720));
     }
