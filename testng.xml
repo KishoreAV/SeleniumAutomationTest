@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="2" name="Suite1" >
-  <test thread-count="2" name="TestPractice" parallel="none" >
+  <test thread-count="2" name="TestPractice" parallel="methods" >
     <classes>
       <class name="com.learn.automation.tests.Test1">
         <methods>

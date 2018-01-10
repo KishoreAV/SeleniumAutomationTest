@@ -7,7 +7,7 @@ public class Test1 extends BaseTest {
     
     @Test
     public void openPageTest(){
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getWebDriver());
         homePage.openBaseUrl();
 
     }

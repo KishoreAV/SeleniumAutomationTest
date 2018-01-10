@@ -3,6 +3,7 @@ package com.learn.automation.tests.alert;
 import com.learn.automation.pageclass.HomePage;
 import com.learn.automation.pageclass.alert.AlertPage;
 import com.learn.automation.tests.BaseTest;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,6 +11,8 @@ public class CheckAlertBox extends BaseTest{
     
     @Test(testName = "Verify simple alert Box Contents", description = "Login and navigate to alert box page and open Alerts")
     public void testSimpleAlert(){
+        WebDriver driver = getWebDriver();
+        logger.info("Thread ID: " + Thread.currentThread().getId());
         HomePage homePage = new HomePage(driver);
         homePage.Login();
         homePage.navigateToAlertPage();
@@ -25,6 +28,8 @@ public class CheckAlertBox extends BaseTest{
     
     @Test(testName = "Verify Input alert Box", description = "Login and navigate to alert box page and open Alerts")
     public void testInputAlert(){
+        WebDriver driver = getWebDriver();
+        logger.info("Test Thread ID: " + Thread.currentThread().getId());
         HomePage homePage = new HomePage(driver);
         homePage.Login();
         homePage.navigateToAlertPage();
