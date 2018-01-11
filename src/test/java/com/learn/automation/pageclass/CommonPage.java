@@ -11,6 +11,10 @@ public class CommonPage extends AbstractBasePage {
         PageFactory.initElements(webDriver,this);
     }
     
+    public void switchToDefaultFrame(){
+        switchToFrame();
+    }
+    
     @FindBy(css = "div.margin-top-20 > h1.heading")
     public WebElement elePageheading;
     

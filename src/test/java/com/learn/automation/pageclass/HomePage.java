@@ -38,6 +38,12 @@ public class HomePage extends CommonPage {
     @FindBy(css = "#toggleNav > li:nth-child(7) > a:nth-child(1)")
     private WebElement menuItemAlert;
     
+    @FindBy(css = "#toggleNav > li:nth-child(5) > a:nth-child(1)")
+    private WebElement menuDynamicElements;
+    
+    @FindBy(css = "#toggleNav > li:nth-child(5) > ul:nth-child(2) > li:nth-child(2) > a")
+    private  WebElement menuDynamicElementsDropdown;
+    
     public void openBaseUrl(){
         logger.debug("Opening base url");
         webDriver.get(Config.getPropertyValue(Config.getResourcePath(this.getClass(),"./global/global.properties"),"BASE_URL"));
@@ -59,6 +65,10 @@ public class HomePage extends CommonPage {
     
     public void navigateToAlertPage(){
         clickWebElement(menuItemAlert);
+    }
+    public void navigateToDropdownPage(){
+        moveCursor(menuDynamicElements);
+        clickWebElement(menuDynamicElementsDropdown);
     }
     
     public void Login(){

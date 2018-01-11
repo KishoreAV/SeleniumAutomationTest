@@ -15,9 +15,6 @@ public class AlertPage extends CommonPage {
         PageFactory.initElements(webDriver,this);
     }
     
-    public void switchToDefaultFrame(){
-        switchToFrame();
-    }
     
     public void switchToAlertSimpleFrame(){
         clickWebElement(btnFrameSimpleAlert);

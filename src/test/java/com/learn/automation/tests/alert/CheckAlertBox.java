@@ -12,7 +12,7 @@ public class CheckAlertBox extends BaseTest{
     @Test(testName = "Verify simple alert Box Contents", description = "Login and navigate to alert box page and open Alerts")
     public void testSimpleAlert(){
         WebDriver driver = getWebDriver();
-        logger.info("Thread ID: " + Thread.currentThread().getId());
+        logger.trace("Thread ID: " + Thread.currentThread().getId());
         HomePage homePage = new HomePage(driver);
         homePage.Login();
         homePage.navigateToAlertPage();
@@ -29,7 +29,7 @@ public class CheckAlertBox extends BaseTest{
     @Test(testName = "Verify Input alert Box", description = "Login and navigate to alert box page and open Alerts")
     public void testInputAlert(){
         WebDriver driver = getWebDriver();
-        logger.info("Test Thread ID: " + Thread.currentThread().getId());
+        logger.trace("Test Thread ID: " + Thread.currentThread().getId());
         HomePage homePage = new HomePage(driver);
         homePage.Login();
         homePage.navigateToAlertPage();

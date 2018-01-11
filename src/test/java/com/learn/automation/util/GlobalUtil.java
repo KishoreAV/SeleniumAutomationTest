@@ -20,9 +20,9 @@ public class GlobalUtil {
 //        operaOptions.setBinary(Config.getPropertyValue(Config.getResourcePath(this.getClass(),"./global/global.properties"),"OPERA_BINARY"));
 //        operaOptions.addArguments("no-sandbox");
 //        webDriver = new OperaDriver(operaOptions);
-        webDriver = new FirefoxDriver();
+//        webDriver = new FirefoxDriver();
 //        webDriver = new HtmlUnitDriver(true);
-//        webDriver = new EdgeDriver();
+        webDriver = new EdgeDriver();
 //        webDriver = new InternetExplorerDriver();
     }
     

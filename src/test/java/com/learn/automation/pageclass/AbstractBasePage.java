@@ -64,6 +64,7 @@ public abstract class AbstractBasePage {
     protected String getAlertText(){
         return webDriver.switchTo().alert().getText();
     }
+    
     public void acceptAlert(){
         webDriver.switchTo().alert().accept();
     }
@@ -99,6 +100,9 @@ public abstract class AbstractBasePage {
         }catch (Exception e){
             logger.error("Error in clicking element", webElement.toString());
         }
+    }
+    protected void moveCursor(WebElement webElement){
+        actions.moveToElement(checkVisible(webElement)).perform();
     }
     
     private WebElement checkVisible(WebElement webElement){
