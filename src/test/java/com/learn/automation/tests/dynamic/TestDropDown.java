@@ -20,7 +20,21 @@ public class TestDropDown extends BaseTest {
         DropDown dropDown = new DropDown(driver);
         dropDown.switchToSelectCountryFrame();
         dropDown.selectRandomItem();
-        
+    }
+    
+    @Test(testName = "Verify drop down 2", description = "Select a random country from the drop down list and log it")
+    public void testComboDropDown(){
+        WebDriver driver = getWebDriver();
+        HomePage homePage = new HomePage(driver);
+        homePage.Login();
+        homePage.navigateToDropdownPage();
+        homePage.waitForPageReady();
+        Assert.assertEquals(homePage.getText(homePage.elePageheading), "Dropdown");
+        DropDown dropDown = new DropDown(driver);
+        dropDown.switchToEnterCountryFrame();
+        dropDown.waitForPageReady();
+        dropDown.enterTextInCombobox();
+        dropDown.verifytext();
     }
     
 }

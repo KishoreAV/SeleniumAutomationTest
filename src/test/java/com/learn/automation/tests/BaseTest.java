@@ -37,16 +37,16 @@ public class BaseTest {
     
     @AfterMethod
     public void tearDown() {
-//        try {
-//            Thread.sleep(500);
-//        }catch (InterruptedException e){
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(5000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
         webDriverThreadLocal.get().quit();
         logger.info("Driver is quit.");
     }
     
-    public WebDriver getWebDriver() {
+    protected WebDriver getWebDriver() {
         return webDriverThreadLocal.get();
     }
 }
