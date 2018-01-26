@@ -3,7 +3,6 @@ package com.learn.automation.pageclass;
 import com.testhelp.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -14,9 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractBasePage {
     protected WebDriver webDriver;
@@ -146,5 +145,9 @@ public abstract class AbstractBasePage {
         }catch (Exception e){
             logger.error("Error in setting text. " + webElement.toString() + e.getLocalizedMessage());
         }
+    }
+    
+    public int randomNumber(int lBound, int uBound){
+        return ThreadLocalRandom.current().nextInt(lBound,uBound+1);
     }
 }
